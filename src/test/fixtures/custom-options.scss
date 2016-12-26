@@ -1,0 +1,12 @@
+@import 'true';
+
+@include test-module('Precision') {
+
+    @include test('should properly apply precision to numbers when using json-encode') {
+        @include assert-equal(json-encode(1.23456789), '\'1.23\'');
+    }
+
+    @include test('should ignore precision for numbers when using json-decode') {
+        @include assert-equal(json-decode("1.23456789"), 1.23456789);
+    }
+}

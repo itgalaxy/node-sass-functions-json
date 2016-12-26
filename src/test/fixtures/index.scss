@@ -1,0 +1,100 @@
+@import 'true';
+
+@include test-module('json-encode') {
+    @include test('should convert Sass list to JSON array') {
+
+        $list: 1, 2, "3", 4px, 42%, 1.23456789px, 1.23456789dppx, 1.23456789deg, (4,5,6), (foo: "bar baz");
+
+        $actual: json-encode($list);
+        $expected: '\'[1,2,"3","4px","42%","1.23457px","1.23457dppx","1.23457deg",[4,5,6],{"foo":"bar baz"}]\'';
+
+        @include assert-equal($actual, $expected);
+    }
+
+    @include test('should convert Sass map to JSON object') {
+        $map: (
+            foo: 1,
+            bar: (2, 3),
+            baz: "3 3 3",
+            bad: (
+                foo: 11,
+                bar: 22,
+                baz: (
+                    5, 4, 6, null, 1, 1.23456789px, 1.23456789dppx, 1.23456789deg
+                ),
+                bag: "foo bar"
+            ),
+            qux: rgba(255,255,255,0.5),
+            corgle: red
+        );
+
+        $actual: json-encode($map);
+        $expected: '\'{"foo":1,"bar":[2,3],"baz":"3 3 3","bad":{"foo":11,"bar":22,"baz":[5,4,6,null,1,"1.23457px","1.23457dppx","1.23457deg"],"bag":"foo bar"},"qux":"rgba(255,255,255,0.5)","corgle":"#f00"}\'';
+
+        @include assert-equal($actual, $expected);
+    }
+}
+
+@include test-module('json-decode') {
+    @include test('should convert JSON array to Sass list') {
+
+        $array: '[1,2,"3","4px","42%","1.23456789px","1.23456789dppx","1.23456789deg",[4,5,6],{"foo":"bar baz"}]';
+
+        $actual: json-decode($array);
+        $expected: 1, 2, "3", 4px, 42%, 1.23456789px, 1.23456789dppx, 1.23456789deg, (4,5,6), (foo: "bar baz");
+
+        @include assert-equal($actual, $expected);
+    }
+
+    @include test('should convert JSON object to Sass map') {
+        $object: '{"foo":1,"bar":[2,3],"baz":"3 3 3","bad":{"foo":11,"bar":22,"baz":[5,4,6,null,1,"1.23456789px","1.23456789dppx","1.23456789deg"],"bag":"foo bar"},"qux":"rgba(255,255,255,0.5)","corgle":"#f00"}';
+
+        $actual: json-decode($object);
+        $expected: (
+            foo: 1,
+            bar: (2, 3),
+            baz: "3 3 3",
+            bad: (
+                foo: 11,
+                bar: 22,
+                baz: (
+                    5, 4, 6, null, 1, 1.23456789px, 1.23456789dppx, 1.23456789deg
+                ),
+                bag: "foo bar"
+            ),
+            qux: rgba(255,255,255,0.5),
+            corgle: #f00
+        );
+
+        @include assert-equal($actual, $expected);
+    }
+
+    @include test('should convert JSON boolean values to Sass boolean values') {
+        @include assert-equal(json-decode('true'), true);
+        @include assert-equal(json-decode('false'), false);
+    }
+
+    @include test('should convert JSON null value to Sass null value') {
+        @include assert-equal(json-decode('null'), null);
+    }
+}
+
+@include test-module('Malformed JSON') {
+    @include test('should treat malformed JSON as Sass null value') {
+        @include assert-equal(json-decode('['), null);
+    }
+}
+
+@include test-module('Quoting stringified values') {
+    $list: 1, 2, "3", (4,5,6), (foo: "bar baz");
+    $expected: '[1,2,"3",[4,5,6],{"foo":"bar baz"}]';
+
+    @include test('should render single quotes around stringified values if {quotes: true}') {
+        @include assert-equal('body {content:#{json-encode($list)};}', 'body {content:\'#{$expected}\';}');
+        @include assert-equal('body {content:#{json-encode($list, $quotes: true)};}', 'body {content:\'#{$expected}\';}');
+    }
+
+    @include test('should omit single quotes around stringified values if {quotes: false}') {
+        @include assert-equal('body {content:#{json-encode($list, $quotes: false)};}', 'body {content:#{$expected};}');
+    }
+}
