@@ -37,7 +37,6 @@
     "dependencies": {
         "rgb-hex": "^2.1.0",
         "shorten-css-hex": "^1.1.0",
-        "node-sass": "^4.0.0",
         "parse-color": "^1.0.0",
         "parse-css-dimension": "^1.1.0",
         "lodash.round": "^4.0.4"
