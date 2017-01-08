@@ -39,7 +39,7 @@ function parseValueToColor(value) {
 }
 
 function arrayToList(arr) {
-    const length = arr.length;
+    const { length } = arr;
     const data = new types.List(length);
 
     for (let i = 0; i < length; i++) {
@@ -51,7 +51,7 @@ function arrayToList(arr) {
 }
 
 function objectToMap(obj) {
-    const length = Object.keys(obj).length;
+    const { length } = Object.keys(obj);
     const data = new types.Map(length);
     let i = 0;
 
