@@ -5,7 +5,7 @@ import { types } from 'node-sass';
 const unitTypes = ['length', 'angle', 'resolution', 'frequency', 'time'];
 
 function isPlainObject(object) {
-    return object instanceof Object && !(object instanceof Array) && typeof object !== 'function';
+    return object instanceof Object && !Array.isArray(object) && typeof object !== 'function';
 }
 
 function isColor(value) {
