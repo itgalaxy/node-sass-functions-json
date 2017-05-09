@@ -4,6 +4,7 @@
 [![Travis Build Status](https://img.shields.io/travis/itgalaxy/node-sass-functions-json/master.svg?label=build)](https://travis-ci.org/itgalaxy/node-sass-functions-json) 
 [![dependencies Status](https://david-dm.org/itgalaxy/node-sass-functions-json/status.svg)](https://david-dm.org/itgalaxy/node-sass-functions-json) 
 [![devDependencies Status](https://david-dm.org/itgalaxy/node-sass-functions-json/dev-status.svg)](https://david-dm.org/itgalaxy/node-sass-functions-json?type=dev)
+[![Greenkeeper badge](https://badges.greenkeeper.io/itgalaxy/node-sass-functions-json.svg)](https://greenkeeper.io/)
 
 JSON encode and decode functions for [node-sass](https://github.com/sass/node-sass).
 
