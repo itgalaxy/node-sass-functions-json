@@ -1,6 +1,6 @@
 {
     "name": "node-sass-functions-json",
-    "version": "1.0.0-alpha.1",
+    "version": "1.0.0",
     "description": "JSON encode and decode functions for node-sass",
     "license": "MIT",
     "author": "itgalaxy <development@itgalaxy.company>",
