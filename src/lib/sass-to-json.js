@@ -1,7 +1,7 @@
 import rgbHex from 'rgb-hex';
 import round from 'lodash.round';
 import shortHexColor from 'shorten-css-hex';
-import { types } from 'node-sass';
+import { types } from 'node-sass'; // eslint-disable-line node/no-unpublished-import
 
 function listToArray(list, opts) {
     const length = list.getLength();
@@ -51,7 +51,10 @@ function getJsonValueFromSassValue(value, opts) {
         }
     } else if (value instanceof types.Number) {
         if (value.getUnit() !== '') {
-            resolvedValue = String(round(Number(value.getValue()), opts.precision) + value.getUnit());
+            resolvedValue = String(
+                round(Number(value.getValue()), opts.precision) +
+                    value.getUnit()
+            );
         } else {
             resolvedValue = round(Number(value.getValue()), opts.precision);
         }

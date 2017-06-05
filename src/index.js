@@ -1,12 +1,14 @@
 import getJsonValueFromSassValue from './lib/sass-to-json';
 import setJsonValueToSassValue from './lib/json-to-sass';
-import { types } from 'node-sass';
+import { types } from 'node-sass'; // eslint-disable-line node/no-unpublished-import
 
 function encode(value, quotes) {
     const shouldQuote = quotes.getValue();
-    let resolvedValue = JSON.stringify(getJsonValueFromSassValue(value, {
-        precision: this.options.precision
-    }));
+    let resolvedValue = JSON.stringify(
+        getJsonValueFromSassValue(value, {
+            precision: this.options.precision
+        })
+    );
 
     if (shouldQuote) {
         resolvedValue = `'${resolvedValue}'`;
@@ -20,17 +22,15 @@ function decode(value) {
 
     try {
         resolvedValue = JSON.parse(value.getValue());
-    } catch (error) { // eslint-disable-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
+    } catch (error) {
         resolvedValue = null;
     }
 
     return setJsonValueToSassValue(resolvedValue);
 }
 
-export {
-    encode,
-    decode
-};
+export { encode, decode };
 
 export default {
     'json-decode($value)': decode,

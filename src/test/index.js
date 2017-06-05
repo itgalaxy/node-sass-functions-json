@@ -13,4 +13,3 @@ pify(sassTrue).runSass(
     describe,
     it
 );
-

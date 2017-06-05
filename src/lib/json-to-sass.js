@@ -1,11 +1,15 @@
 import parseColor from 'parse-color';
 import parseUnit from 'parse-css-dimension';
-import { types } from 'node-sass';
+import { types } from 'node-sass'; // eslint-disable-line node/no-unpublished-import
 
 const unitTypes = ['length', 'angle', 'resolution', 'frequency', 'time'];
 
 function isPlainObject(object) {
-    return object instanceof Object && !Array.isArray(object) && typeof object !== 'function';
+    return (
+        object instanceof Object &&
+        !Array.isArray(object) &&
+        typeof object !== 'function'
+    );
 }
 
 function isColor(value) {
@@ -19,13 +23,17 @@ function parseValueToStringOrNumber(value) {
         const resolvedUnitValue = parseUnit(value);
 
         if (unitTypes.indexOf(resolvedUnitValue.type) !== -1) {
-            resolvedValue = new types.Number(resolvedUnitValue.value, resolvedUnitValue.unit);
+            resolvedValue = new types.Number(
+                resolvedUnitValue.value,
+                resolvedUnitValue.unit
+            );
         } else if (resolvedUnitValue.type === 'percentage') {
             resolvedValue = new types.Number(resolvedUnitValue.value, '%');
         } else {
             resolvedValue = new types.String(resolvedUnitValue.value);
         }
-    } catch (error) { // eslint-disable-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
+    } catch (error) {
         resolvedValue = new types.String(value);
     }
 
@@ -35,7 +43,12 @@ function parseValueToStringOrNumber(value) {
 function parseValueToColor(value) {
     const resolvedColorValue = parseColor(value).rgba;
 
-    return new types.Color(resolvedColorValue[0], resolvedColorValue[1], resolvedColorValue[2], resolvedColorValue[3]);
+    return new types.Color(
+        resolvedColorValue[0],
+        resolvedColorValue[1],
+        resolvedColorValue[2],
+        resolvedColorValue[3]
+    );
 }
 
 function arrayToList(arr) {
