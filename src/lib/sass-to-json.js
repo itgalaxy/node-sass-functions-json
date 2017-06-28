@@ -1,7 +1,7 @@
-import rgbHex from 'rgb-hex';
-import round from 'lodash.round';
-import shortHexColor from 'shorten-css-hex';
-import { types } from 'node-sass'; // eslint-disable-line node/no-unpublished-import
+import rgbHex from "rgb-hex";
+import round from "lodash.round";
+import shortHexColor from "shorten-css-hex";
+import { types } from "node-sass"; // eslint-disable-line node/no-unpublished-import
 
 function listToArray(list, opts) {
     const length = list.getLength();
@@ -47,10 +47,10 @@ function getJsonValueFromSassValue(value, opts) {
         if (alphaValue === 1) {
             resolvedValue = shortHexColor(`#${rgbHex(...rgbValue)}`);
         } else {
-            resolvedValue = `rgba(${rgbValue.join(',')},${alphaValue})`;
+            resolvedValue = `rgba(${rgbValue.join(",")},${alphaValue})`;
         }
     } else if (value instanceof types.Number) {
-        if (value.getUnit() !== '') {
+        if (value.getUnit() !== "") {
             resolvedValue = String(
                 round(Number(value.getValue()), opts.precision) +
                     value.getUnit()

@@ -1,6 +1,6 @@
-import getJsonValueFromSassValue from './lib/sass-to-json';
-import setJsonValueToSassValue from './lib/json-to-sass';
-import { types } from 'node-sass'; // eslint-disable-line node/no-unpublished-import
+import getJsonValueFromSassValue from "./lib/sass-to-json";
+import setJsonValueToSassValue from "./lib/json-to-sass";
+import { types } from "node-sass"; // eslint-disable-line node/no-unpublished-import
 
 function encode(value, quotes) {
     const shouldQuote = quotes.getValue();
@@ -33,6 +33,6 @@ function decode(value) {
 export { encode, decode };
 
 export default {
-    'json-decode($value)': decode,
-    'json-encode($value, $quotes: true)': encode
+    "json-decode($value)": decode,
+    "json-encode($value, $quotes: true)": encode
 };

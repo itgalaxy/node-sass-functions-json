@@ -1,19 +1,19 @@
-import parseColor from 'parse-color';
-import parseUnit from 'parse-css-dimension';
-import { types } from 'node-sass'; // eslint-disable-line node/no-unpublished-import
+import parseColor from "parse-color";
+import parseUnit from "parse-css-dimension";
+import { types } from "node-sass"; // eslint-disable-line node/no-unpublished-import
 
-const unitTypes = ['length', 'angle', 'resolution', 'frequency', 'time'];
+const unitTypes = ["length", "angle", "resolution", "frequency", "time"];
 
 function isPlainObject(object) {
     return (
         object instanceof Object &&
         !Array.isArray(object) &&
-        typeof object !== 'function'
+        typeof object !== "function"
     );
 }
 
 function isColor(value) {
-    return typeof parseColor(value).rgba !== 'undefined';
+    return typeof parseColor(value).rgba !== "undefined";
 }
 
 function parseValueToStringOrNumber(value) {
@@ -27,8 +27,8 @@ function parseValueToStringOrNumber(value) {
                 resolvedUnitValue.value,
                 resolvedUnitValue.unit
             );
-        } else if (resolvedUnitValue.type === 'percentage') {
-            resolvedValue = new types.Number(resolvedUnitValue.value, '%');
+        } else if (resolvedUnitValue.type === "percentage") {
+            resolvedValue = new types.Number(resolvedUnitValue.value, "%");
         } else {
             resolvedValue = new types.String(resolvedUnitValue.value);
         }
@@ -91,11 +91,11 @@ function setJsonValueToSassValue(value) {
         resolvedValue = objectToMap(value);
     } else if (isColor(value)) {
         resolvedValue = parseValueToColor(value);
-    } else if (typeof value === 'string') {
+    } else if (typeof value === "string") {
         resolvedValue = parseValueToStringOrNumber(value);
-    } else if (typeof value === 'number') {
+    } else if (typeof value === "number") {
         resolvedValue = new types.Number(value);
-    } else if (typeof value === 'boolean') {
+    } else if (typeof value === "boolean") {
         resolvedValue = value ? types.Boolean.TRUE : types.Boolean.FALSE;
     }
 
