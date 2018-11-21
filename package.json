@@ -70,7 +70,7 @@
         "sass-true": "^3.0.0",
         "mocha": "^5.0.0",
         "istanbul": "^0.4.3",
-        "husky": "^0.14.0",
+        "husky": "^1.2.0",
         "lint-staged": "^5.0.0",
         "prettier": "^1.5.2"
     },
